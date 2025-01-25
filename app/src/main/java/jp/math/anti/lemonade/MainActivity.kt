@@ -51,6 +51,7 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun LemonadeScreen() {
     var steps by remember { mutableStateOf(1) }
+    var squeezes by remember { mutableStateOf((2..4).random()) }
     Column(){
         Column(
             modifier = Modifier
@@ -95,8 +96,16 @@ fun LemonadeScreen() {
                     onClick = {
                         if (steps >= 4 || steps <= 0) {
                             steps = 1
-                        } else {
+                        } else if(steps != 2){
+                            if(steps == 1){
+                                squeezes = (2..4).random()
+                            }
                             steps++
+                        } else{
+                            squeezes--
+                            if(squeezes == 0){
+                                steps++
+                            }
                         }
                     }
                 )
